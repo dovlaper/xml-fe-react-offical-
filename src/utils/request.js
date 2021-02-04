@@ -45,6 +45,10 @@ export function getUserFromToken() {
   return null;
 }
 
+export function getRole() {
+  return getUserFromToken()?.role;
+}
+
 export function* refreshToken(prevToken) {
   const { accessToken: token } = yield call(api, {
     url: '/auth/refresh',

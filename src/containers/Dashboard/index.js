@@ -16,10 +16,7 @@ function Dashboard() {
   const user = getUserFromToken();
   return (
     <main>
-      <title>Dashboard - {user.role} </title>
-      <h1>Dashboard - {user.role} </h1>
-
-      {user.role === 'ROLE_CITIZEN' ? (
+      {user?.role === 'ROLE_CITIZEN' ? (
           <Redirect to={'/citizen'} />
         ) : (
           <Redirect to={'/commissioner'} />

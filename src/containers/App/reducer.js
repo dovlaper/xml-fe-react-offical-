@@ -5,12 +5,14 @@ import {
   FETCH_AUTHENTICATED_USER_SUCCESS,
   LOGOUT_SUCCESS,
   SET_TOKEN,
-  SESSION_EXPIRED
+  SESSION_EXPIRED, 
+  SET_ERROR,
 } from './constants';
 
 export const initialState = {
   token: getItem('token') || null,
-  user: null
+  user: null,
+  error: null,
 };
 
 /* eslint-disable default-case */
@@ -29,7 +31,9 @@ const appReducer = (state = initialState, action) =>
         draft.token = action.token;
         draft.user = getUserFromToken()
         break;
-    }
+      case SET_ERROR:
+        draft.error = action.payload;
+      }
   });
 
 export default appReducer;

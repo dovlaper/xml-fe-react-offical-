@@ -10,15 +10,20 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import request from '../../utils/request';
 import { setRescript } from './actions';
 import axios from 'axios';
+import { getItem } from "../../utils/localStorage";
 
-export function* getAllRescriptsSaga() {
+export function* getAllRescriptsSaga({payload}) {
     try {
+        const all = payload || '';
         const { data } = yield call(() => 
           axios.get(
-            "http://localhost:8080/api/rescript/", 
+            `http://localhost:8080/api/rescript/${all}`, 
             {
               data: null,
-              headers: {'Content-Type': 'application/xml'}
+              headers: {
+                  'Content-Type': 'application/xml',
+                  'Authorization': `Bearer ${getItem('token')}`
+                }
             }
           )
         )

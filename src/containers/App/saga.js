@@ -3,6 +3,7 @@ import { removeItem } from '../../utils/localStorage';
 import request from '../../utils/request';
 import { fetchAuthenticatedUserSuccess, logoutSuccess } from './actions';
 import { FETCH_AUTHENTICATED_USER_REQUEST, LOGOUT_REQUEST } from './constants';
+import history from '../../utils/history';
 
 export function* fetchUser() {
   try {
@@ -16,14 +17,16 @@ export function* fetchUser() {
   }
 }
 
+function forwardTo(location) {
+  console.log('forwardd')
+  // history.push(location);
+}
+
 export function* logout() {
   try {
-    yield call(request, {
-      url: '/auth/logout',
-      method: 'post'
-    });
-    yield put(logoutSuccess());
+    console.log("dsadas")
     yield call(removeItem, 'token');
+    yield call(forwardTo, '/login');
   } catch (error) {
     //
   }

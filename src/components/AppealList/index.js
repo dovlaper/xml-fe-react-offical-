@@ -12,30 +12,23 @@ import { useInjectSaga } from '../../utils/injectSaga';
 import saga from '../Silence/saga';
 import { download } from '../Silence/actions';
 import { Link } from '@material-ui/core';
-
-const key = 'silence';
-
+import HeaderOptionsCommissioner from './HeaderOptionsCommissioner';
+import HeaderOptionsCitizen from './HeaderOptionsCitizen';
 
 function AccordionHeaderOptions(shouldShow, rest){
     const [showModal, setShowModal] = useState(false);
-    const dispatch = useDispatch();
-    useInjectSaga({key, saga})
-    const downloadPDF = () => {
-        dispatch(download({id: rest.id, type: 'pdf'}))
-    }
+
+    const { role } = getUserFromToken();
+    const isCitizen = role === 'ROLE_CITIZEN';
     return (
         <span style={{margin: '10px'}}>
             {shouldShow && (
                 <>
-                    <Button onClick={() => setShowModal(true)} variant="success">Forward to Official</Button>
-                    <Button onClick={() => setShowModal(true) } variant="info" style={{margin: '20px'}}>Create Rescript</Button>
-                    <Button onClick={downloadPDF} variant="warning">Download PDF</Button>
-                    <Link href={`http://localhost:8080/api/silenceappeal/${rest.id}/generate?type=pdf`}>Download PDF</Link>
-                    <Link href={`http://localhost:8080/api/silenceappeal/${rest.id}/generate?type=html`}>Download HTML</Link>
-                    <Link href={`http://localhost:8080/api/silenceappeal/meta/json/${rest.id}`}>Export Metadata JSON</Link>
-                    <Link href={`http://localhost:8080/api/silenceappeal/meta/rdf/${rest.id}`}>Export Metadata RDF</Link>
-
-
+                    {isCitizen ? 
+                        <HeaderOptionsCitizen id={rest.id}/> :
+                        <HeaderOptionsCommissioner
+                            createRescriptCb={() => setShowModal(true)}
+                            forwardRescriptCb={() => {}}/>}
                     <CreateRescriptModal
                         show={showModal}
                         close={() => setShowModal(false)}
@@ -54,54 +47,42 @@ const AppealList = ({list}) => {
     const [ xml, setXml] = useState('')
     const [current, setCurrent] = useState(null)
 
-    const onClickHarvest = () => {
-        if (itemEls.current && current) {
-            const builder = new Builder({});
-            const xml = itemEls.current[current].getXml();
-            if (xml) {
-                setXml(builder.buildObject(xml))
-            }
-        }
-    }
     return (
-        <>
+        <div style={{width: '50%', marginLeft: '25%'}}>
             {!!list.length && (
             <Accordion onSelect={(index)=>{setCurrent(index)}} >
                 {list.map((xmlNode, index) => {
+
+                    const submitter = xmlNode?.getElementsByTagNameNS("http://www.zalbacutanje.com", "podnosilac_zalbe")[0]?.getAttribute('href');
                     const cardName = xmlNode.getAttribute('id') || `Zalba-${index}`;
                     const xmlString = serializer.serializeToString(xmlNode);
                     const appealHref = xmlNode?.getAttribute('about')
                     return (
                         <Card key={index}>
-                            <ContextAwareToggle eventKey={cardName} title={cardName} appealHref={appealHref} id={cardName} officalHref={`http://users/${user.email}`} >
+                            <ContextAwareToggle
+                                eventKey={cardName}
+                                title={cardName}
+                                appealHref={appealHref}
+                                id={cardName}
+                                commissionerHref={`http://users/${user.email}`}
+                                submitter={submitter}
+                            >
                                 {AccordionHeaderOptions}
                             </ContextAwareToggle>
                             <Accordion.Collapse eventKey={cardName}>
-                            <Card.Body>
-                            <XmlEditor
-                                docSpec={ silenceAppealDocSpec }
-                                ref={(element) => itemEls.current[cardName] = element}
-                                xml={ xmlString }
-                            />
-                            </Card.Body>
+                                <Card.Body>
+                                    <XmlEditor
+                                        docSpec={ silenceAppealDocSpec }
+                                        ref={(element) => itemEls.current[cardName] = element}
+                                        xml={ xmlString }
+                                    />
+                                </Card.Body>
                             </Accordion.Collapse>
                         </Card>
                 )})
                 }
             </Accordion>)}
-
-
-            <div>
-                <button onClick={ onClickHarvest }>
-                    Harvest
-                </button>
-            </div>
-            <div>
-                <pre>
-                    { xml }
-                </pre>
-            </div> 
-        </>
+        </div>
     )
 }
 

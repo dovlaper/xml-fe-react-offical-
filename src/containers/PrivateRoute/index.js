@@ -16,7 +16,7 @@ export function PrivateRoute({
     <Route
       {...rest}
       render={props =>
-        (isAuthenticated && canAccess) ? <Component {...props} /> : <Redirect from={rest.path} to="/" />
+        (isAuthenticated && canAccess) ? <Component {...props} /> : <Redirect from={rest.path} to="/login" />
       }
     />
   );

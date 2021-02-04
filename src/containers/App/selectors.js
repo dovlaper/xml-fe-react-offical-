@@ -31,5 +31,5 @@ export {
   makeSelectUser,
   makeSelectError,
   makeSelectIsAuthenticated,
-  makeSelectToken
+  makeSelectToken,
 };

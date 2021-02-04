@@ -4,7 +4,8 @@ import {
     LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
     SET_TOKEN,
-    SESSION_EXPIRED
+    SESSION_EXPIRED,
+    SET_ERROR,
   } from './constants';
   
   export function fetchAuthenticatedUser() {
@@ -45,3 +46,9 @@ import {
     };
   }
   
+  export function setError(payload) {
+    return {
+      type: SET_ERROR,
+      payload
+    }
+  }

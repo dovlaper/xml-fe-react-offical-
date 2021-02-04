@@ -7,3 +7,7 @@ export const RESET_PASSWORD = '/reset-password';
 export const USER_PROFILE = '/profile';
 export const CITIZEN = '/citizen';
 export const COMMISSIONER = '/commissioner'
+export const RESCRIPTS = '/rescript';
+export const APPEALS = '/appeals'
+export const DECISION_APPEALS = '/decisionappeal';
+export const SILENCE_APPEALS = '/silenceappeal';

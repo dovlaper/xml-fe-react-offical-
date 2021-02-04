@@ -11,7 +11,7 @@ import reducer from './reducer';
 
 const key = 'rescript';
 
-const CreateRescriptModal = ({show, close, officalHref, appealHref}) => {
+const CreateRescriptModal = ({show, close, commissionerHref, appealHref, submitter}) => {
     const ref = useRef()
     const dispatch = useDispatch();
     useInjectReducer({ key, reducer })
@@ -31,13 +31,14 @@ const CreateRescriptModal = ({show, close, officalHref, appealHref}) => {
             show={show}
             close={close}
             title={"Create rescript"}
+            buttonTitle={"Create"}
             onSubmit={handleCreateRescript}
         >
             <XmlEditor
                 mode={'laic'}
                 docSpec={ createRescriptDocSpec }
                 ref={ref}
-                xml={ xmlString(officalHref, appealHref)}
+                xml={ xmlString(commissionerHref, appealHref, submitter)}
             />
         </BaseModal>
     )

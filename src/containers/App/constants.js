@@ -6,3 +6,5 @@ export const LOGOUT_REQUEST = `${APP} LOGOUT_REQUEST`;
 export const LOGOUT_SUCCESS = `${APP} LOGOUT_SUCCESS`;
 export const SET_TOKEN = `${APP} SET_TOKEN`;
 export const SESSION_EXPIRED = `${APP} SESSION_EXPIRED`;
+export const SET_ERROR = `${APP} SET_ERROR`;
+

@@ -11,6 +11,7 @@ import { makeSelectSilence } from './selectors';
 
 import styled from 'styled-components';
 import AppealList from '../AppealList';
+import { getRole } from '../../utils/request';
 const key = 'silence';
 const SilenceAppealWrapper = styled.div`
 width: 100%;
@@ -22,13 +23,17 @@ const Silence = () => {
     useInjectReducer({ key, reducer })
     useInjectSaga({ key, saga })
     useEffect(() => {
-        dispatch(getSilenceAppeal())
+        const role = getRole();
+        if (role === "ROLE_CITIZEN"){
+            dispatch(getSilenceAppeal('all'))
+        } else {
+            dispatch(getSilenceAppeal())
+        }
     }, [dispatch])
 
 
     return (
         <SilenceAppealWrapper>
-            <h1>Silence Appeals</h1>
             <AppealList ref={ref} list={newXml} />    
         </SilenceAppealWrapper>
     )

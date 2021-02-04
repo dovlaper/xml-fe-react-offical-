@@ -1,7 +1,8 @@
-import { GET_SILENCE_APPEALS, SET_SILENCE_APPEALS, CREATE_SILENCE_APPEAL, ADD_SILENCE_APPEAL, DOWNLOAD } from "./constants";
+import { GET_SILENCE_APPEALS, SET_SILENCE_APPEALS, CREATE_SILENCE_APPEAL, ADD_SILENCE_APPEAL, DOWNLOAD, ABORT_APPEAL } from "./constants";
 
-export const getSilenceAppeal = () => ({
-    type: GET_SILENCE_APPEALS
+export const getSilenceAppeal = (payload) => ({
+    type: GET_SILENCE_APPEALS,
+    payload
 })
 
 export const setSilenceAppeal = (payload) => ({
@@ -21,5 +22,10 @@ export const addSilenceAppeal = payload => ({
 
 export const download = payload => ({
     type: DOWNLOAD,
+    payload
+})
+
+export const abortAppeal = payload => ({
+    type: ABORT_APPEAL,
     payload
 })

@@ -131,7 +131,7 @@ const SUBMITTER = {
         <za:Podnosilac 
             about="http://zalbe/1"
             rel="pred:submitter"
-            href="${creatorId}"
+            href="http://users/${creatorId}"
         >
             <sh:Ime property="pred:submitterName">Ime</sh:Ime>
             <sh:Prezime property="pred:submitterLastname">Prezime</sh:Prezime>

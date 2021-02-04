@@ -8,12 +8,10 @@ import CreateAppealModal from './CreateAppealModal';
 
 const CitizenDashboard = ({props}) => {
 
-    const user = getUserFromToken();
     const [show, setShow] = useState(false)
     const close = () => setShow(false)
     return  (
       <>
-        <h1>Hello, {user.email}</h1>
         <Button onClick={() => setShow(true)} class="btn btn-info">Create Appeal</Button>
 
         <div style={{display:'inline-flex', width: '100%'}}>

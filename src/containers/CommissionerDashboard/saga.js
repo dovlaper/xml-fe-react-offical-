@@ -15,5 +15,4 @@ export function* fetchUser() {
 }
 
 export default function* appSaga() {
-  yield takeLatest(GET_SILENCE_APPEALS, getSilenceAppeals);
 }

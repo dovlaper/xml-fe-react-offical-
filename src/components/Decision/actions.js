@@ -2,11 +2,13 @@ import {
     GET_DECISION_APPEALS,
     SET_DECISION_APPEALS,
     CREATE_DECISION_APPEAL,
-    ADD_DECISION_APPEAL
+    ADD_DECISION_APPEAL,
+    ABORT_APPEAL,
 } from "./constants";
 
-export const getDecisionAppeal = () => ({
-    type: GET_DECISION_APPEALS
+export const getDecisionAppeal = (payload) => ({
+    type: GET_DECISION_APPEALS,
+    payload
 })
 
 export const setDecisionAppeal = (payload) => ({
@@ -22,5 +24,10 @@ export const createDecisionAppeal = payload => ({
 
 export const addDecisionAppeal = payload => ({
     type: ADD_DECISION_APPEAL,
+    payload
+})
+
+export const abortAppeal = payload => ({
+    type: ABORT_APPEAL,
     payload
 })

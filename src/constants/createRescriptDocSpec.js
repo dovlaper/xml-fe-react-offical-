@@ -93,7 +93,7 @@ const createRescriptDocSpec = {
 };
 
 export default createRescriptDocSpec;
-export const xmlString = (officalHref, appealHref) => {
+export const xmlString = (commissionerHref, appealHref, submitter) => {
     return `
     <?xml version="1.0" encoding="UTF-8"?>
     <ResenjeRoot 
@@ -103,7 +103,7 @@ export const xmlString = (officalHref, appealHref) => {
         xmlns:pred="http://www.tim21.com/predicate/"
         xsi:schemaLocation="http://www.resenje.com ../xsd/resenje.xsd"
         dopustena_zalba="ne"
-        
+        submitter="${submitter}"
         about="http://resenja/1"
         rel="pred:rescriptForAppeal"
         href="${appealHref}"
@@ -212,7 +212,7 @@ export const xmlString = (officalHref, appealHref) => {
     <Poverenik 
         about="http://resenja/1"
         rel="pred:commisioner"
-        href="${officalHref}"
+        href="${commissionerHref}"
         >
         <sh:Ime property="pred:commisionerName">Milan</sh:Ime>
         <sh:Prezime property="pred:commisionerLastname">Marinovic</sh:Prezime>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
+import { getRole } from '../../utils/request';
 import AppealList from '../AppealList';
 import { getDecisionAppeal } from './actions';
 import reducer from './reducer';
@@ -19,13 +20,17 @@ const Decision = () => {
     useInjectReducer({ key, reducer })
     useInjectSaga({ key, saga })
     useEffect(() => {
-        dispatch(getDecisionAppeal())
+        const role = getRole();
+        if (role === "ROLE_CITIZEN"){
+            dispatch(getDecisionAppeal('all'))
+        } else {
+            dispatch(getDecisionAppeal())
+        }
     }, [dispatch])
 
 
     return (
         <DecisionAppealWrapper>
-            <h1>Decision Appeals</h1>
             <AppealList ref={ref} list={newXml} />    
         </DecisionAppealWrapper>
     )

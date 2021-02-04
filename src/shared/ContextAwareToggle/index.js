@@ -12,7 +12,7 @@ function ContextAwareToggle({ children, eventKey, callback, title, ...rest }) {
   
     return (
         <Card.Header>
-            <Accordion.Toggle as={Button} variant="danger"  eventKey={eventKey}>
+            <Accordion.Toggle as={Button} variant="info"  eventKey={eventKey}>
                 <div>
                     {title}
                 </div>

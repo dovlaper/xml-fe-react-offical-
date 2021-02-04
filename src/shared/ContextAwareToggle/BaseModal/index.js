@@ -20,7 +20,7 @@ function getModalStyle() {
       overflow: 'scroll',
     };
   }
-const BaseModal = ({show, close, title, children, onSubmit}) => {
+const BaseModal = ({show, close, title, children, onSubmit, buttonTitle, closeButtonTitle, aditionalStyle}) => {
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
 
@@ -30,12 +30,15 @@ const BaseModal = ({show, close, title, children, onSubmit}) => {
         onClose={close}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        style={modalStyle} 
+        style={{...modalStyle, ...aditionalStyle}} 
     >
         <div className={classes.paper}>
             <h2>{title}</h2>
             {children}
-            <Button onClick={onSubmit}>Create</Button>
+            <Button onClick={onSubmit}>{buttonTitle}</Button>
+            {!!closeButtonTitle && (
+              <Button variant="primary" onClick={close}>Abort</Button>
+            )}
         </div>
   </Modal>
 

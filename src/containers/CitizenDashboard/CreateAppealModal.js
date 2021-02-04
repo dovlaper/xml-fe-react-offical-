@@ -50,8 +50,8 @@ const CreateAppealModal = ({show, close }) => {
             if (xml) {
                 const action = !isSilence ? createDecisionAppeal : createSilenceAppeal
                 dispatch(action(builder.buildObject(xml)))
-
             }
+            close();
         }
     }
 
@@ -82,6 +82,7 @@ const CreateAppealModal = ({show, close }) => {
             show={show}
             close={close}
             title={"Create appeal"}
+            buttonTitle={"Create"}
             onSubmit={handleCreateAppeal}
         >
 

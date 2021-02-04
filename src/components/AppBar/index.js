@@ -1,21 +1,49 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import { SILENCE_APPEALS, DECISION_APPEALS, LOGIN, RESCRIPTS, WELCOME } from '../../routes';
 import { Link } from 'react-router-dom';
-import { DASHBOARD, USER_PROFILE } from '../../routes';
+import MenuIcon from '@material-ui/icons/Menu'
+import { green } from '@material-ui/core/colors';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+  link: {
+    margin: '10px',
+    color:'#17a2b8',
+    textDecoration:'none',
+  }
+}));
 
-function AppBar({ onLogout }) {
+export default function ButtonAppBar({onLogout}) {
+  const classes = useStyles();
 
   return (
-    <div>
-      {/* <Link to={DASHBOARD}>Vivify Ideas</Link> */}
-      {/* <Link to={USER_PROFILE}>Profile</Link> */}
-      <span onClick={onLogout}>Logout</span>
+    <div className={classes.root}>
+      <AppBar position="static" color={green[400]}>
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            <Link className={classes.link} style={{textDecoration:'none'}} to={RESCRIPTS}>Rescripts</Link>
+            <Link className={classes.link} style={{textDecoration:'none'}} to={SILENCE_APPEALS}>Silence Appeals</Link>
+            <Link className={classes.link} style={{textDecoration:'none'}} to={DECISION_APPEALS}>Decision Appeals</Link>
+          </Typography>
+          <Button color="inherit" onClick={onLogout}>Logout</Button>
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }
-
-AppBar.propTypes = {
-  onLogout: PropTypes.func.isRequired
-};
-
-export default AppBar;
