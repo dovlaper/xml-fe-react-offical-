@@ -16,7 +16,6 @@ export function* authorize({ email, password }) {
         }
       )
     )
-    console.log(data)
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(data,"text/xml");
     const token = xmlDoc.getElementsByTagName("token")[0].innerHTML;   

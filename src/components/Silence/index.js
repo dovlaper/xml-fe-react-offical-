@@ -9,11 +9,12 @@ import reducer from './reducer';
 import saga from './saga';
 import { makeSelectSilence } from './selectors';
 
-import Button from 'react-bootstrap/Button';
 import styled from 'styled-components';
 import AppealList from '../AppealList';
 const key = 'silence';
-
+const SilenceAppealWrapper = styled.div`
+width: 100%;
+`
 const Silence = () => {
     const newXml = useSelector(makeSelectSilence())
     const ref = useRef()
@@ -24,11 +25,10 @@ const Silence = () => {
         dispatch(getSilenceAppeal())
     }, [dispatch])
 
-    const SilenceAppealWrapper = styled.div`
-        width: 50%;
-    `
+
     return (
         <SilenceAppealWrapper>
+            <h1>Silence Appeals</h1>
             <AppealList ref={ref} list={newXml} />    
         </SilenceAppealWrapper>
     )

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { LOGIN, REGISTER } from '../../routes';
 
 function WelcomePage() {
-  console.log("EE")
   return (
     <div>
       <title>Welcome - XML</title>

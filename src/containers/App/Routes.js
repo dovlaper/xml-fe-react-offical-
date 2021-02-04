@@ -28,13 +28,12 @@ import { getUserFromToken } from '../../utils/request';
 export default function Routes() {
   
 const user = getUserFromToken()
-console.log(user)
   return (
     <Switch>
       <PublicRoute exact path={WELCOME} component={WelcomePage} />
       <PrivateRoute exact path={DASHBOARD} component={Dashboard}/>
-      <PrivateRoute exact path={COMMISSIONER} component={CommissionerDashboard} canAccess={user?.role === "COMMISSIONER"}  />
-      <PrivateRoute exact path={CITIZEN} component={CitizenDashboard} canAccess={user?.role === "CITIZEN"}  />
+      <PrivateRoute exact path={COMMISSIONER} component={CommissionerDashboard} canAccess={user?.role === "ROLE_COMMISSIONER"}  />
+      <PrivateRoute exact path={CITIZEN} component={CitizenDashboard} canAccess={user?.role === "ROLE_CITIZEN"}  />
       <PrivateRoute exact path={USER_PROFILE} component={UserProfilePage} />
       <PublicRoute exact path={LOGIN} component={LoginPage} />
       <PublicRoute exact path={REGISTER} component={RegisterPage} />

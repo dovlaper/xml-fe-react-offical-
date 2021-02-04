@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
 import { getUserFromToken } from '../../utils/request';
@@ -17,10 +18,11 @@ function Dashboard() {
     <main>
       <title>Dashboard - {user.role} </title>
       <h1>Dashboard - {user.role} </h1>
-      {user.role === 'CITIZEN' ? (
-          <CitizenDashboard user />
+
+      {user.role === 'ROLE_CITIZEN' ? (
+          <Redirect to={'/citizen'} />
         ) : (
-          <CommissionerDashboard user />
+          <Redirect to={'/commissioner'} />
         )
       }
     </main>

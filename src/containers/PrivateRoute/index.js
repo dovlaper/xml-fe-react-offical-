@@ -12,7 +12,6 @@ export function PrivateRoute({
   canAccess = true,
   ...rest
 }) {
-  console.log("DSDA", canAccess)
   return (
     <Route
       {...rest}

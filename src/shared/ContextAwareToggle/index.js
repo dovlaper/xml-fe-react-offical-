@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { Accordion, AccordionContext, Button, Card, useAccordionToggle } from 'react-bootstrap';
+import { Accordion, AccordionContext, Button, Card, useAccordionToggle,   } from 'react-bootstrap';
 
-function ContextAwareToggle({ children, eventKey, callback, title }) {
+function ContextAwareToggle({ children, eventKey, callback, title, ...rest }) {
     const currentEventKey = useContext(AccordionContext);
-  
     const decoratedOnClick = useAccordionToggle(
       eventKey,
       () => callback && callback(eventKey),
@@ -18,7 +17,7 @@ function ContextAwareToggle({ children, eventKey, callback, title }) {
                     {title}
                 </div>
             </Accordion.Toggle>
-            {children(isCurrentEventKey)}
+            {children(isCurrentEventKey, rest)}
         </Card.Header>
     );
   }

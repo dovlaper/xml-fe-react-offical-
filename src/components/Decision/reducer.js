@@ -1,19 +1,21 @@
 import produce from 'immer';
-import { SET_DECISION_APPEALS } from './constants';
+import { ADD_DECISION_APPEAL, SET_DECISION_APPEALS } from './constants';
 
 export const initialState = {
-  xml: ""
+  xml: []
 };
 
 /* eslint-disable default-case */
-const silenceReducer = (state = initialState, action) =>
+const decisionReducer = (state = initialState, action) =>
   produce(state, (draft) => {
     switch (action.type) {
       case SET_DECISION_APPEALS:
-        console.log("Payload", action.payload)
         draft.xml = action.payload
+        break;
+      case ADD_DECISION_APPEAL:
+        draft.xml = [...draft.xml, action.payload]
         break;
     }
   });
 
-export default silenceReducer;
+export default decisionReducer;

@@ -40,7 +40,6 @@ export function getUserFromToken() {
   const token = getItem('token')
   if (token) {
     const user = jwtDecode(token)
-    console.log(user)
     return {email: user.sub, role: user.role};
   }
   return null;

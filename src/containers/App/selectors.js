@@ -6,7 +6,7 @@ const selectApp = state => state.app || initialState;
 const makeSelectUser = () =>
   createSelector(
     selectApp,
-    substate => substate.user
+    substate => substate
   );
 
 const makeSelectIsAuthenticated = () =>

@@ -1,34 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
 import AppealList from '../AppealList';
-import { getDecisionAppeal } from './actions';
+import { getAllRescripts } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import { makeSelectDecision } from './selectors';
-const key = 'decision';
+import {  makeSelectRescript } from './selectors';
+
+const key = 'rescript';
+
 const DecisionAppealWrapper = styled.div`
 width: 100%;
 `
-const Decision = () => {
-    const newXml = useSelector(makeSelectDecision())
+const Rescript = () => {
+    const newXml = useSelector(makeSelectRescript())
     const ref = useRef()
     const dispatch = useDispatch();
     useInjectReducer({ key, reducer })
     useInjectSaga({ key, saga })
     useEffect(() => {
-        dispatch(getDecisionAppeal())
+        dispatch(getAllRescripts())
     }, [dispatch])
-
 
     return (
         <DecisionAppealWrapper>
-            <h1>Decision Appeals</h1>
+            <h1>Rescripts</h1>
             <AppealList ref={ref} list={newXml} />    
         </DecisionAppealWrapper>
     )
 }
 
-export default Decision;
+export default Rescript;
