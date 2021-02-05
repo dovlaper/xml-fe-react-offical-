@@ -4,7 +4,7 @@ import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
 import { getUserFromToken } from '../../utils/request';
 import CitizenDashboard from '../CitizenDashboard';
-import CommissionerDashboard from '../CommissionerDashboard';
+import OfficalDashboard from '../OfficalDashboard';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -19,7 +19,7 @@ function Dashboard() {
       {user?.role === 'ROLE_CITIZEN' ? (
           <Redirect to={'/citizen'} />
         ) : (
-          <Redirect to={'/commissioner'} />
+          <Redirect to={'/offical'} />
         )
       }
     </main>

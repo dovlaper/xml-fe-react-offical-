@@ -1,34 +1,46 @@
 import React, { useRef, useState } from 'react';
-import { Accordion, Button, Card } from 'react-bootstrap';
-import { Builder, XmlEditor } from 'react-xml-editor';
+import { Accordion, Card } from 'react-bootstrap';
+import { XmlEditor } from 'react-xml-editor';
 import ContextAwareToggle from '../../shared/ContextAwareToggle';
 
-import silenceAppealDocSpec from '../../constants/silenceAppealDocSpec';
+import silenceAppealDocSpec from '../../constants/requestDocSpec';
 import CreateRescriptModal from '../Rescript/CreateRescriptModal';
-import { makeSelectUser } from '../../containers/App/selectors';
-import { useDispatch, useSelector } from 'react-redux';
 import { getUserFromToken } from '../../utils/request';
-import { useInjectSaga } from '../../utils/injectSaga';
-import saga from '../Silence/saga';
-import { download } from '../Silence/actions';
-import { Link } from '@material-ui/core';
 import HeaderOptionsCommissioner from './HeaderOptionsCommissioner';
 import HeaderOptionsCitizen from './HeaderOptionsCitizen';
-
-function AccordionHeaderOptions(shouldShow, rest){
+import { useDispatch } from 'react-redux';
+import { useInjectSaga } from '../../utils/injectSaga';
+import saga from '../Request/saga';
+import {getRequests, reject } from '../Request/actions'
+const key = 'request';
+const AccordionHeaderOptions = (shouldShow, status, rest) => {
     const [showModal, setShowModal] = useState(false);
-
+    console.log([status])
+    const show = status === 'PROCESS'
     const { role } = getUserFromToken();
     const isCitizen = role === 'ROLE_CITIZEN';
+    const dispatch = useDispatch()
+    useInjectSaga({key, saga});
+
+    const handleReject = () => {
+        dispatch(reject(rest.id))
+    }
     return (
         <span style={{margin: '10px'}}>
             {shouldShow && (
                 <>
                     {isCitizen ? 
                         <HeaderOptionsCitizen id={rest.id}/> :
-                        <HeaderOptionsCommissioner
-                            createRescriptCb={() => setShowModal(true)}
-                            forwardRescriptCb={() => {}}/>}
+                        (
+                            <>
+                                <HeaderOptionsCitizen id={rest.id}/>
+                                <HeaderOptionsCommissioner
+                                rejectCb={handleReject}
+                                answerCb={() => setShowModal(true)}
+                                show={show}
+                                />
+                            </>
+                            )}
                     <CreateRescriptModal
                         show={showModal}
                         close={() => setShowModal(false)}
@@ -57,8 +69,9 @@ const AppealList = ({list}) => {
                     const cardName = xmlNode.getAttribute('id') || `Zalba-${index}`;
                     const xmlString = serializer.serializeToString(xmlNode);
                     const appealHref = xmlNode?.getAttribute('about')
+                    const status = xmlNode?.getAttribute('status')
                     return (
-                        <Card key={index}>
+                        <Card key={index}> 
                             <ContextAwareToggle
                                 eventKey={cardName}
                                 title={cardName}
@@ -66,6 +79,7 @@ const AppealList = ({list}) => {
                                 id={cardName}
                                 commissionerHref={`http://users/${user.email}`}
                                 submitter={submitter}
+                                status={status}
                             >
                                 {AccordionHeaderOptions}
                             </ContextAwareToggle>

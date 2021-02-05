@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import Decision from '../../components/Decision';
-import CreateAppealModal from '../CitizenDashboard/CreateAppealModal';
+import Request from '../../components/Request';
 import { AddButtonIcon, PageList } from '../../shared/PageList';
 import { getRole } from '../../utils/request';
 import SearchInput from '../../shared/SearchInput';
 import Filter from '../../shared/Filter';
 import { useDispatch } from 'react-redux';
-import { getDecisionAppeal, search, filter } from '../../components/Decision/actions';
+import { getRequests, search, filter } from '../../components/Request/actions';
+import CreateRequestModal from '../CitizenDashboard/CreateRequestModal';
 
-const DecisionAppeals = () => {
+const RequestPage = () => {
 
     const [show, setShow] = useState(false)
     const close = () => setShow(false)
@@ -17,27 +17,27 @@ const DecisionAppeals = () => {
         if (value) {
             dispatch(search(value))
         } else {
-            dispatch(getDecisionAppeal())
+            dispatch(getRequests())
         }
     }
     const handleFilterSubmit = (data) => {
         dispatch(filter(data))
     }
-    const isCommissioner = getRole() === "ROLE_COMMISSIONER";
+    const isOffical = getRole() === "ROLE_OFFICIAL";
     return  (
         <>
           <PageList>
-            <h2>Decision Appeals</h2>
-            {isCommissioner && (<>
+            <h2>Requests</h2>
+            {isOffical && (<>
               <Filter onSubmit={handleFilterSubmit}/>
               <SearchInput onChange={handleChange}/>
             </>)}
             {getRole() === 'ROLE_CITIZEN' && (<AddButtonIcon onClick={() =>setShow(true)} />)}
           </PageList>
-          <Decision style={{width:'50%', marginLeft: '25%'}}/>
-          {show && (<CreateAppealModal show={show} close={close} />)}
+          <Request style={{width:'50%', marginLeft: '25%'}}/>
+          {show && (<CreateRequestModal show={show} close={close} />)}
         </>
       )
 }
 
-export default DecisionAppeals;
+export default RequestPage;

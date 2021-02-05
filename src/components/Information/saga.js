@@ -1,15 +1,15 @@
-import { ABORT_APPEAL, CREATE_DECISION_APPEAL, GET_DECISION_APPEALS, SEARCH, FILTER } from "./constants";
+import { ABORT_APPEAL, CREATE_INFORMATION, GET_INFORMATIONS, SEARCH, FILTER } from "./constants";
 import { takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
-import { setDecisionAppeal, addDecisionAppeal } from './actions';
+import { setInformation, addInformation } from './actions';
 import { getItem } from "../../utils/localStorage";
 import { setError } from "../../containers/App/actions";
-export function* getDecisionAppeal({payload}) {
+export function* getInformation({payload}) {
   try {
       const all = payload || '';
       const { data }= yield call(() => 
         axios.get(
-          `http://localhost:8080/api/decisionappeal/${all}`, 
+          `http://localhost:8083/api/informations/${all}`, 
           {
             data: null,
             headers: {
@@ -24,17 +24,17 @@ export function* getDecisionAppeal({payload}) {
       const xmlDoc = parser.parseFromString(data,"text/xml");
       
       const list = Array.from(xmlDoc.getElementsByTagNameNS("http://www.zalbanaodluku.com", "ZalbaRoot")) 
-      yield put(setDecisionAppeal(list))
+      yield put(setInformation(list))
   } catch (error) {
       console.log(error)
   }
 }
 
-export function* createDecisionSaga({ payload }) {
+export function* createInformationSaga({ payload }) {
   try {
       const { data } = yield call(() => 
           axios.post(
-              "http://localhost:8080/api/decisionappeal/",
+              "http://localhost:8083/api/informations/",
               payload,
               {
                 headers: {
@@ -46,34 +46,16 @@ export function* createDecisionSaga({ payload }) {
       )
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(data,"text/xml");
-      yield put(addDecisionAppeal(xmlDoc.getElementsByTagNameNS("http://www.zalbanaodluku.com", "ZalbaRoot")[0]  ))
+      yield put(addInformation(xmlDoc.getElementsByTagNameNS("http://www.zalbanaodluku.com", "ZalbaRoot")[0]  ))
   } catch(error) {
       console.log(error)
-  }
-}
-  
-export function* abortAppeal({payload}){
-  try{
-    yield call(()=> axios.delete(
-      `http://localhost:8080/api/decisionappeal/${payload}`,
-      {
-        headers: {
-          'Content-Type': 'application/xml',
-          'Authorization': `Bearer ${getItem('token')}`
-        }
-      }
-    ))
-  } catch(error) {
-    if(error.response.status === 400) {
-      yield put(setError("Can't abort this appeal, you already received rescript!"))
-    }
   }
 }
 
 export function* search({payload}) {
     try {
       const {data} = yield call(()=> axios.get(
-      `http://localhost:8080/api/decisionappeal/search/${payload}`,
+      `http://localhost:8083/api/informations/search/${payload}`,
       {
         headers: {
           'Content-Type': 'application/xml',
@@ -86,7 +68,7 @@ export function* search({payload}) {
     const xmlDoc = parser.parseFromString(data,"text/xml");
     
     const list = Array.from(xmlDoc.getElementsByTagNameNS("http://www.zalbanaodluku.com", "ZalbaRoot")) 
-    yield put(setDecisionAppeal(list))
+    yield put(setInformation(list))
   } catch(error) {
     console.log(error)
   }
@@ -94,9 +76,8 @@ export function* search({payload}) {
 
 export function* filter({payload}) {
   try {
-    console.log("PAYLOAD", payload)
     const {data} = yield call(()=> axios.post(
-    `http://localhost:8080/api/decisionappeal/meta/search/`,
+    `http://localhost:8083/api/informations/meta/search/`,
     payload,
     {
       headers: {
@@ -109,16 +90,15 @@ export function* filter({payload}) {
 
   const xmlDoc = parser.parseFromString(data,"text/xml");
   const list = Array.from(xmlDoc.getElementsByTagNameNS("http://www.zalbanaodluku.com", "ZalbaRoot")) 
-  yield put(setDecisionAppeal(list))
+  yield put(setInformation(list))
 } catch(error) {
   console.log(error)
 }
 }
 
-  export default function* DecisionSaga() {
-    yield takeLatest(GET_DECISION_APPEALS, getDecisionAppeal);
-    yield takeLatest(CREATE_DECISION_APPEAL, createDecisionSaga);
-    yield takeLatest(ABORT_APPEAL, abortAppeal);
+  export default function* InformationSaga() {
+    yield takeLatest(GET_INFORMATIONS, getInformation);
+    yield takeLatest(CREATE_INFORMATION, createInformationSaga);
     yield takeLatest(SEARCH, search)
     yield takeLatest(FILTER, filter)
   }

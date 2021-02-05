@@ -1,23 +1,23 @@
 import React, { useContext } from 'react';
 import { Accordion, AccordionContext, Button, Card, useAccordionToggle,   } from 'react-bootstrap';
 
-function ContextAwareToggle({ children, eventKey, callback, title, ...rest }) {
+function ContextAwareToggle({ children, eventKey, callback, title, status, ...rest }) {
     const currentEventKey = useContext(AccordionContext);
-    const decoratedOnClick = useAccordionToggle(
-      eventKey,
-      () => callback && callback(eventKey),
-    );
-  
+
     const isCurrentEventKey = currentEventKey === eventKey;
-  
+    const buttonStyle = {
+        'REJECTED' : 'danger',
+        'PROCESS' : 'warning',
+        'ACCEPTED' : 'success'
+    } 
     return (
         <Card.Header>
-            <Accordion.Toggle as={Button} variant="info"  eventKey={eventKey}>
+            <Accordion.Toggle as={Button} variant={buttonStyle[status]}  eventKey={eventKey}>
                 <div>
-                    {title}
+                    {title} | {status}
                 </div>
             </Accordion.Toggle>
-            {children(isCurrentEventKey, rest)}
+            {children(isCurrentEventKey,status, rest)}
         </Card.Header>
     );
   }

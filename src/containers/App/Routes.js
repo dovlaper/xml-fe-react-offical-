@@ -10,7 +10,7 @@ import RegisterPage from '../RegisterPage/Loadable';
 import ForgotPasswordPage from '../ForgotPasswordPage/Loadable';
 import ResetPasswordPage from '../ResetPasswordPage/Loadable';
 import NotFoundPage from '../NotFoundPage/Loadable';
-import CommissionerDashboard from '../CommissionerDashboard/Loadable';
+import OfficalDashboard from '../OfficalDashboard/Loadable';
 import CitizenDashboard from '../CitizenDashboard/Loadable';
 import {
   WELCOME,
@@ -20,18 +20,17 @@ import {
   FORGOT_PASSWORD,
   RESET_PASSWORD,
   USER_PROFILE,
-  COMMISSIONER,
+  OFFICAL,
   CITIZEN,
   RESCRIPTS,
-  APPEALS,
-  SILENCE_APPEALS,
-  DECISION_APPEALS,
-  REPORTS
+
+  REPORTS,
+  INFORMATION,
+  REQUESTS
 } from '../../routes';
 import { getUserFromToken } from '../../utils/request';
-import Rescript from '../../components/Rescript';
-import SilenceAppeals from '../SilenceAppeals'
-import DecisionAppeals from '../DecisionAppeals';
+import InformationPage from '../InformationPage'
+import RequestPage from '../RequestPage';
 import Rescripts from '../Rescripts';
 import Reports from '../Reports';
 
@@ -44,14 +43,14 @@ console.log(isAuthenticated)
     <Switch>
       <PublicRoute exact path={WELCOME} component={WelcomePage} />
       <PrivateRoute exact path={DASHBOARD} component={Dashboard}/>
-      <PrivateRoute exact path={COMMISSIONER} component={CommissionerDashboard} isAuthenticated={!!user} canAccess={user?.role === "ROLE_COMMISSIONER"}  />
+      <PrivateRoute exact path={OFFICAL} component={OfficalDashboard} isAuthenticated={true} canAccess={user?.role === "ROLE_OFFICIAL"}  />
       <PrivateRoute exact path={CITIZEN} component={CitizenDashboard} isAuthenticated={!!user}  canAccess={user?.role === "ROLE_CITIZEN"}  />
       <PrivateRoute exact path={USER_PROFILE} component={UserProfilePage} />
       <PublicRoute exact path={LOGIN} component={LoginPage} />
       <PublicRoute exact path={REGISTER} component={RegisterPage} />
       <PrivateRoute exact path={RESCRIPTS} component={Rescripts} isAuthenticated={!!user} />
-      <PrivateRoute exact path={DECISION_APPEALS} component={DecisionAppeals} isAuthenticated={!!user} />
-      <PrivateRoute exact path={SILENCE_APPEALS} component={SilenceAppeals} isAuthenticated={!!user} />
+      <PrivateRoute exact path={INFORMATION} component={InformationPage} isAuthenticated={!!user} />
+      <PrivateRoute exact path={REQUESTS} component={RequestPage} isAuthenticated={!!user} />
       <PrivateRoute exact path={REPORTS} component={Reports} isAuthenticated={!!user} />
 
       <PublicRoute

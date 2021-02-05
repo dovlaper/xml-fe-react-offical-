@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
 import { getRole } from '../../utils/request';
 import AppealList from '../AppealList';
-import { getDecisionAppeal } from './actions';
+import { getInformation } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import { makeSelectDecision } from './selectors';
-const key = 'decision';
-const DecisionAppealWrapper = styled.div`
+import { makeSelectInformation } from './selectors';
+const key = 'information';
+const InfoAppealWrapper = styled.div`
 width: 100%;
 `
 const Decision = () => {
-    const newXml = useSelector(makeSelectDecision())
+    const newXml = useSelector(makeSelectInformation())
     const ref = useRef()
     const dispatch = useDispatch();
     useInjectReducer({ key, reducer })
@@ -22,17 +22,17 @@ const Decision = () => {
     useEffect(() => {
         const role = getRole();
         if (role === "ROLE_CITIZEN"){
-            dispatch(getDecisionAppeal('all'))
+            dispatch(getInformation('all'))
         } else {
-            dispatch(getDecisionAppeal())
+            dispatch(getInformation())
         }
     }, [dispatch])
 
 
     return (
-        <DecisionAppealWrapper>
+        <InfoAppealWrapper>
             <AppealList ref={ref} list={newXml} />    
-        </DecisionAppealWrapper>
+        </InfoAppealWrapper>
     )
 }
 

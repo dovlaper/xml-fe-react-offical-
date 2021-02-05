@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { SILENCE_APPEALS, DECISION_APPEALS, LOGIN, RESCRIPTS, WELCOME, REPORTS } from '../../routes';
+import { REQUESTS, INFORMATION } from '../../routes';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu'
 import { green } from '@material-ui/core/colors';
@@ -33,14 +33,9 @@ export default function ButtonAppBar({onLogout}) {
     <div className={classes.root}>
       <AppBar position="static" color={green[400]}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <Link className={classes.link} style={{textDecoration:'none'}} to={RESCRIPTS}>Rescripts</Link>
-            <Link className={classes.link} style={{textDecoration:'none'}} to={SILENCE_APPEALS}>Silence Appeals</Link>
-            <Link className={classes.link} style={{textDecoration:'none'}} to={DECISION_APPEALS}>Decision Appeals</Link>
-            <Link className={classes.link} style={{textDecoration:'none'}} to={REPORTS}>Reports</Link>
+            <Link className={classes.link} style={{textDecoration:'none'}} to={REQUESTS}>Requests</Link>
+            <Link className={classes.link} style={{textDecoration:'none'}} to={INFORMATION}>Information</Link>
           </Typography>
           <Button color="inherit" onClick={onLogout}>Logout</Button>
         </Toolbar>

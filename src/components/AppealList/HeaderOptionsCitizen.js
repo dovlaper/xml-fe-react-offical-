@@ -1,23 +1,18 @@
 import { Button, Link, Menu, MenuItem } from '@material-ui/core';
 import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import AreYouSure from '../../shared/AreYouSure';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
-import silenceSaga from '../Silence/saga';
-import silenceReducer from '../Silence/reducer';
-import decisionSaga from '../Decision/saga';
-import decisionReducer from '../Decision/reducer';
-import {abortAppeal as silenceAbort} from '../Silence/actions';
-import {abortAppeal as decisionAbort} from '../Decision/actions'; 
+import silenceSaga from '../Request/saga';
+import silenceReducer from '../Request/reducer';
+import decisionSaga from '../Information/saga';
+import decisionReducer from '../Information/reducer';
 
 const silenceKey='silence';
 const decisionKey='decision';
 
 const HeaderOptionsCitizen = ({id}) => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const [areYouSure, setAreYouSure] = useState(false);
 
     useInjectReducer({key: silenceKey, reducer: silenceReducer});
     useInjectSaga({key: silenceKey, saga: silenceSaga});
@@ -28,28 +23,16 @@ const HeaderOptionsCitizen = ({id}) => {
       setAnchorEl(event.currentTarget);
     };
     const route = useLocation().pathname;
-
-    const dispatch = useDispatch()
   
     const handleClose = () => {
       setAnchorEl(null);
     };
-
-    const handleAbortAppeal = () => {
-        setAreYouSure(true)
-    }
-    const action = route === '/silenceappeal' ? silenceAbort : decisionAbort;
-    const showAbort = route !== '/rescript'
-    const handleAbort = () => {
-        dispatch(action(id));
-    }
 
     return (
         <>
             <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 Options
             </Button>
-            {showAbort && (<Button color="secondary" onClick={handleAbortAppeal}>Abort Appeal</Button>)}
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
@@ -70,7 +53,6 @@ const HeaderOptionsCitizen = ({id}) => {
                         <Link href={`http://localhost:8080/api${route}/meta/rdf/${id}`}>Export Metadata RDF</Link>
                     </MenuItem>
             </Menu>     
-            {areYouSure && (<AreYouSure show={areYouSure} close={()=>setAreYouSure(false)} onSubmit={handleAbort} />)}
         </>
     );
 }

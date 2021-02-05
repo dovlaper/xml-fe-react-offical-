@@ -9,7 +9,7 @@ export function* authorize({ email, password }) {
   try {
     const {data} = yield call(() => 
       axios.post(
-        "http://localhost:8080/auth/login/",
+        "http://localhost:8083/auth/login/",
         `<User><email>${email}</email><password>${password}</password></User>`, 
         {
           headers: {'Content-Type': 'application/xml'}

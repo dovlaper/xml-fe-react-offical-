@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import CreateAppealModal from '../CitizenDashboard/CreateAppealModal';
-import Silence from '../../components/Silence';
+import CreateInformationModal from '../OfficalDashboard/CreateInformationModal';
+import Information from '../../components/Information';
 import { PageList, AddButtonIcon} from '../../shared/PageList';
 import SearchInput from  '../../shared/SearchInput';
 import Filter from '../../shared/Filter';
 import { getRole } from '../../utils/request';
 import { useDispatch } from 'react-redux';
-import { search } from '../../components/Silence/actions';
-import { getSilenceAppeal } from '../../components/Silence/actions';
+import { search } from '../../components/Information/actions';
+import { getInformation } from '../../components/Information/actions';
 
 const SilenceAppeals = () => {
     const [show, setShow] = useState(false)
@@ -18,23 +18,23 @@ const SilenceAppeals = () => {
         if (value) {
             dispatch(search(value))
         } else {
-            dispatch(getSilenceAppeal())
+            dispatch(getInformation())
         }
     }
 
-    const isCommissioner = getRole() === "ROLE_COMMISSIONER"
+    const isOffical = getRole() === "ROLE_OFFICIAL"
 
     return  (
       <>
         <PageList>
-          <h2>Silence Appeals</h2>
-          {isCommissioner && (<><SearchInput onChange={handleChange}/>
+          <h2>Information</h2>
+          {isOffical && (<><SearchInput onChange={handleChange}/>
           <Filter /></>)}
-          {getRole() === 'ROLE_CITIZEN' && (<AddButtonIcon onClick={() =>setShow(true)} />)}
+          {isOffical && (<AddButtonIcon onClick={() =>setShow(true)} />)}
         </PageList>
 
-        <Silence style={{width:'50%', marginLeft: '25%'}}/>
-        {show && (<CreateAppealModal show={show} close={close} />)}
+        <Information style={{width:'50%', marginLeft: '25%'}}/>
+        {show && (<CreateInformationModal show={show} close={close} />)}
       </>
     )
 }

@@ -1,9 +1,6 @@
-import React, { useState } from 'react'
-import CreateAppealModal from '../CitizenDashboard/CreateAppealModal';
-import { AddButtonIcon, PageList } from '../../shared/PageList';
+import React from 'react'
+import { PageList } from '../../shared/PageList';
 import Rescript from '../../components/Rescript';
-import CreateRescriptModal from '../../components/Rescript/CreateRescriptModal';
-import { getRole } from '../../utils/request';
 
 const Rescripts = () => {
     return  (
