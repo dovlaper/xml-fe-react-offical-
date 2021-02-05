@@ -1,20 +1,35 @@
 import React, { useState } from 'react'
-import { Button, IconButton } from '@material-ui/core';
 import CreateAppealModal from '../CitizenDashboard/CreateAppealModal';
 import Silence from '../../components/Silence';
-import { PageList, AddButton, AddButtonIcon} from '../../shared/PageList';
-import { NoteAdd } from '@material-ui/icons';
+import { PageList, AddButtonIcon} from '../../shared/PageList';
+import SearchInput from  '../../shared/SearchInput';
+import Filter from '../../shared/Filter';
 import { getRole } from '../../utils/request';
+import { useDispatch } from 'react-redux';
+import { search } from '../../components/Silence/actions';
+import { getSilenceAppeal } from '../../components/Silence/actions';
 
 const SilenceAppeals = () => {
     const [show, setShow] = useState(false)
     const close = () => setShow(false)
+
+    const dispatch = useDispatch();
+    const handleChange = (value) => {
+        if (value) {
+            dispatch(search(value))
+        } else {
+            dispatch(getSilenceAppeal())
+        }
+    }
     return  (
       <>
         <PageList>
           <h2>Silence Appeals</h2>
+          <SearchInput onChange={handleChange}/>
+          <Filter />
           {getRole() === 'ROLE_CITIZEN' && (<AddButtonIcon onClick={() =>setShow(true)} />)}
         </PageList>
+
         <Silence style={{width:'50%', marginLeft: '25%'}}/>
         {show && (<CreateAppealModal show={show} close={close} />)}
       </>

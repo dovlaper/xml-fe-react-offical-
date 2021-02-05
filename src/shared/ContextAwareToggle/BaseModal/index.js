@@ -6,11 +6,11 @@ const useStyles = makeStyles((theme) => ({
         width: '50%',
         position: 'absolute',
         backgroundColor: theme.palette.background.paper,
-        border: '2px solid red',
         marginLeft: '25%',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: 20
     },
   })); 
 

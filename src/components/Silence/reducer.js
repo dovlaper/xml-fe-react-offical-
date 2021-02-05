@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { SET_SILENCE_APPEALS, ADD_SILENCE_APPEAL } from './constants';
+import { SET_SILENCE_APPEALS, ADD_SILENCE_APPEAL, SET_SEARCH } from './constants';
 
 export const initialState = {
   xml: []
@@ -15,6 +15,8 @@ const silenceReducer = (state = initialState, action) =>
       case ADD_SILENCE_APPEAL:
         draft.xml = [...draft.xml, action.payload]
         break;
+      case SET_SEARCH:
+        draft.xml = [...draft.xml, action.payload]
     }
   });
 

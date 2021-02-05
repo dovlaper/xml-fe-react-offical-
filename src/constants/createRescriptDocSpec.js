@@ -43,7 +43,7 @@ const createRescriptDocSpec = {
             menu: [{
                 caption: "Dodaj tacku",
                 action: Util.newElementChild('<sh:Tacka broj="3">Tacka 3</sh:Tacka>'),
-                actionParameter: "param>"
+                actionParameter: "param"
             }]
         },
         'sh:Ime': {

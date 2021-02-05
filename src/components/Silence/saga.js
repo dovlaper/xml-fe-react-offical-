@@ -1,4 +1,4 @@
-import { CREATE_SILENCE_APPEAL, GET_SILENCE_APPEALS, DOWNLOAD, ABORT_APPEAL } from "./constants";
+import { CREATE_SILENCE_APPEAL, GET_SILENCE_APPEALS, DOWNLOAD, ABORT_APPEAL, SEARCH } from "./constants";
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { setSilenceAppeal, addSilenceAppeal } from './actions';
 import { setError } from '../../containers/App/actions';
@@ -83,10 +83,32 @@ export function* abortAppeal({payload}){
   }
 }
 
+export function* search({payload}) {
+  try {
+    const {data} = yield call(()=> axios.get(
+    `http://localhost:8080/api/silenceappeal/search/${payload}`,
+    {
+      headers: {
+        'Content-Type': 'application/xml',
+        'Authorization': `Bearer ${getItem('token')}`
+      }
+    }
+  ))
+  const parser = new DOMParser();
+
+  const xmlDoc = parser.parseFromString(data,"text/xml");
+  
+  const list = Array.from(xmlDoc.getElementsByTagNameNS("http://www.zalbacutanje.com", "ZalbaCutanjeRoot")) 
+  yield put(setSilenceAppeal(list))
+} catch(error) {
+  console.log(error)
+}
+}
 export default function* silenceSaga() {
   yield takeLatest(GET_SILENCE_APPEALS, getSilenceAppeals);
   yield takeLatest(CREATE_SILENCE_APPEAL, createSilenceSaga);
   yield takeLatest(DOWNLOAD, download);
   yield takeLatest(ABORT_APPEAL, abortAppeal);
+  yield takeLatest(SEARCH, search)
 }
   

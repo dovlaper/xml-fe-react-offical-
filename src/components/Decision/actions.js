@@ -4,6 +4,10 @@ import {
     CREATE_DECISION_APPEAL,
     ADD_DECISION_APPEAL,
     ABORT_APPEAL,
+    SEARCH,
+    SET_SEARCH,
+    FILTER,
+    SET_FILTER,
 } from "./constants";
 
 export const getDecisionAppeal = (payload) => ({
@@ -29,5 +33,25 @@ export const addDecisionAppeal = payload => ({
 
 export const abortAppeal = payload => ({
     type: ABORT_APPEAL,
+    payload
+})
+
+export const search = payload => ({
+    type: SEARCH,
+    payload
+})
+
+export const setSearch = payload => ({
+    type: SET_SEARCH,
+    payload
+})
+
+export const filter = payload => ({
+    type: FILTER,
+    payload
+})
+
+export const setFilter = payload => ({
+    type: SET_FILTER,
     payload
 })
