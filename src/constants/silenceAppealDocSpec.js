@@ -49,7 +49,7 @@ export const xmlString = (requestId, citizenId) => {
             <zal:razlog>није поступио у законском року</zal:razlog>
             (подвући  због чега се изјављује жалба)
             по мом захтеву  за слободан приступ информацијама од јавног значаја који сам поднео  том органу  дана 
-            <zal:datum property="pred:requestDate">2020-09-10</zal:datum>
+            <zal:datum property="pred:requestDate">5/2/2021</zal:datum>
             године, а којим сам тражио/ла да ми се у складу са Законом о слободном приступу информацијама од јавног значаја омогући увид- копија документа који садржи информације  о /у вези са :
             <zal:podaci_o_zahtevu property="pred:requestDetails">neki podaci o zahtevu</zal:podaci_o_zahtevu>
             (навести податке о захтеву и информацији/ама)
@@ -72,7 +72,7 @@ export const xmlString = (requestId, citizenId) => {
             </zal:podnosilac_zalbe>
             <zal:datum_vreme>
                 <sh:vreme property="appealTime">09:15:00</sh:vreme>
-                <sh:datum property="appealDate">2020-09-10</sh:datum>
+                <sh:datum property="appealDate">5/2/2021</sh:datum>
             </zal:datum_vreme>
         </zal:sadrzaj>
     </zal:zalbaCutanje>

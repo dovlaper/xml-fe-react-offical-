@@ -16,6 +16,7 @@ const key = 'silence';
 const SilenceAppealWrapper = styled.div`
 width: 100%;
 `
+
 const Silence = () => {
     const newXml = useSelector(makeSelectSilence())
     const ref = useRef()

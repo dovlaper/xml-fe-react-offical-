@@ -25,13 +25,15 @@ import {
   RESCRIPTS,
   APPEALS,
   SILENCE_APPEALS,
-  DECISION_APPEALS
+  DECISION_APPEALS,
+  REPORTS
 } from '../../routes';
 import { getUserFromToken } from '../../utils/request';
 import Rescript from '../../components/Rescript';
 import SilenceAppeals from '../SilenceAppeals'
 import DecisionAppeals from '../DecisionAppeals';
 import Rescripts from '../Rescripts';
+import Reports from '../Reports';
 
 export default function Routes() {
   
@@ -50,7 +52,8 @@ console.log(isAuthenticated)
       <PrivateRoute exact path={RESCRIPTS} component={Rescripts} isAuthenticated={!!user} />
       <PrivateRoute exact path={DECISION_APPEALS} component={DecisionAppeals} isAuthenticated={!!user} />
       <PrivateRoute exact path={SILENCE_APPEALS} component={SilenceAppeals} isAuthenticated={!!user} />
-      
+      <PrivateRoute exact path={REPORTS} component={Reports} isAuthenticated={!!user} />
+
       <PublicRoute
         exact
         path={FORGOT_PASSWORD}

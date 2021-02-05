@@ -21,12 +21,15 @@ const SilenceAppeals = () => {
             dispatch(getSilenceAppeal())
         }
     }
+
+    const isCommissioner = getRole() === "ROLE_COMMISSIONER"
+
     return  (
       <>
         <PageList>
           <h2>Silence Appeals</h2>
-          <SearchInput onChange={handleChange}/>
-          <Filter />
+          {isCommissioner && (<><SearchInput onChange={handleChange}/>
+          <Filter /></>)}
           {getRole() === 'ROLE_CITIZEN' && (<AddButtonIcon onClick={() =>setShow(true)} />)}
         </PageList>
 

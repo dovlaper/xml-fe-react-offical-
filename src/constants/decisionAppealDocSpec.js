@@ -117,9 +117,7 @@ const SUBMITTER = {
         ${SUBMITTER[submitter]}
         <za:Tekst_zalbe>
          
-            <za:Datum_podnosenja_zahteva property="pred:requestDate">
-                2020-09-13
-            </za:Datum_podnosenja_zahteva>
+            <za:Datum_podnosenja_zahteva property="pred:requestDate">${new Date().toLocaleDateString("en-CA")}</za:Datum_podnosenja_zahteva>
           
             <za:Osnova_zalbe  property="pred:appealBasis">
                 Osnova zalbe
@@ -127,7 +125,7 @@ const SUBMITTER = {
                 
         </za:Tekst_zalbe>
         <za:Grad>Unesite Grad</za:Grad>
-        <za:Datum> 2020-09-10</za:Datum>
+        <za:Datum>${new Date().toLocaleDateString("en-CA")}</za:Datum>
         <za:Podnosilac 
             about="http://zalbe/1"
             rel="pred:submitter"

@@ -23,14 +23,15 @@ const DecisionAppeals = () => {
     const handleFilterSubmit = (data) => {
         dispatch(filter(data))
     }
-  
+    const isCommissioner = getRole() === "ROLE_COMMISSIONER";
     return  (
         <>
           <PageList>
             <h2>Decision Appeals</h2>
-            <Filter onSubmit={handleFilterSubmit}/>
-
-            <SearchInput onChange={handleChange}/>
+            {isCommissioner && (<>
+              <Filter onSubmit={handleFilterSubmit}/>
+              <SearchInput onChange={handleChange}/>
+            </>)}
             {getRole() === 'ROLE_CITIZEN' && (<AddButtonIcon onClick={() =>setShow(true)} />)}
           </PageList>
           <Decision style={{width:'50%', marginLeft: '25%'}}/>

@@ -31,8 +31,8 @@ export const xml = (
 <SubmitterCity>${subCity}</SubmitterCity>
 <SubmitterStreet>${subStreet}</SubmitterStreet>
 <SubmitterType>${subType}</SubmitterType>
-<RequestDate>${reqDate.toLocaleDateString()}</RequestDate>
-<AppealDate>${appealDate.toLocaleDateString()}</AppealDate>
+<RequestDate>${reqDate?.toLocaleDateString("en-CA") || ''}</RequestDate>
+<AppealDate>${appealDate?.toLocaleDateString("en-CA") || ''}</AppealDate>
 <RecipientCity>${recCity}</RecipientCity>
 <RecipientStreet>${recStreet}</RecipientStreet>
 </sh:DecisionAppealFilter>`

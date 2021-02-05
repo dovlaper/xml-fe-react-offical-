@@ -1,6 +1,6 @@
 import { FormControl, IconButton, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -33,14 +33,13 @@ const Filter = ({onSubmit}) => {
     const [subCity, setSubCity] = useState('')
     const [subStreet, setSubStreet] = useState('')
     const [subType, setSubType] = useState('FIZICKO_LICE')
-    const [appealDate, setAppealDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [appealDate, setAppealDate] = React.useState(new Date());
 
     const handleAppealDateChange = (date) => {
       setAppealDate(date);
     };    
     
-    const [reqDate, setReqDate] = React.useState(new Date('2014-08-18T21:11:54'));
-
+    const [reqDate, setReqDate] = React.useState(new Date());
     const handleReqDateChange = (date) => {
       setReqDate(date);
     };const [recCity, setRecCity] = useState('')

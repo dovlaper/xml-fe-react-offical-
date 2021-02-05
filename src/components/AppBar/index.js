@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { SILENCE_APPEALS, DECISION_APPEALS, LOGIN, RESCRIPTS, WELCOME } from '../../routes';
+import { SILENCE_APPEALS, DECISION_APPEALS, LOGIN, RESCRIPTS, WELCOME, REPORTS } from '../../routes';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu'
 import { green } from '@material-ui/core/colors';
@@ -40,6 +40,7 @@ export default function ButtonAppBar({onLogout}) {
             <Link className={classes.link} style={{textDecoration:'none'}} to={RESCRIPTS}>Rescripts</Link>
             <Link className={classes.link} style={{textDecoration:'none'}} to={SILENCE_APPEALS}>Silence Appeals</Link>
             <Link className={classes.link} style={{textDecoration:'none'}} to={DECISION_APPEALS}>Decision Appeals</Link>
+            <Link className={classes.link} style={{textDecoration:'none'}} to={REPORTS}>Reports</Link>
           </Typography>
           <Button color="inherit" onClick={onLogout}>Logout</Button>
         </Toolbar>
