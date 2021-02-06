@@ -35,6 +35,7 @@ const CreateResponseModal = ({show, close, requestId, submitterId}) => {
             closeButtonTitle={"Cancel"}
         >
             <XmlEditor
+                mode="laic"
                 ref={ref}
                 xml={xmlS}
                 docSpec={docSpec}

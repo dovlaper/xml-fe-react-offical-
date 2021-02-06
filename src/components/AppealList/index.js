@@ -107,6 +107,7 @@ const AppealList = ({list}) => {
                             <Accordion.Collapse eventKey={cardName}>
                                 <Card.Body>
                                     <XmlEditor
+                                        mode="laic"
                                         docSpec={ silenceAppealDocSpec }
                                         ref={(element) => itemEls.current[cardName] = element}
                                         xml={ xmlString }

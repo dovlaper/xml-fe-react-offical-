@@ -28,13 +28,34 @@ const silenceAppealDocSpec = {
                 {
                     action: Util.newElementChild('<FAKS property="pred:delivery" content="FAKS"></FAKS>'),
                     caption: 'Faks',
-                },
-                {
-                    action: Util.newElementChild('Unesite nesto drugo'),
-                    caption: 'Drugo',
-                },
+                }
             ]
-        }
+        },
+        POSTA: {
+            menu: [
+                {
+                    action: Util.deleteElement,
+                    caption: 'Ukloni',
+                }
+            ]
+        },
+        FAKS: {
+            menu: [
+                {
+                    action: Util.deleteElement,
+                    caption: 'Ukloni',
+                }
+            ]
+        },
+        EMAIL: {
+            menu: [
+                {
+                    action: Util.deleteElement,
+                    caption: 'Ukloni',
+                }
+            ]
+        } 
+ 
     }
   };
 
@@ -71,6 +92,7 @@ export const xmlString = (citizenId) => {
 
         достављање копије документа који садржи тражену информацију:**
         <nacini_dostave>
+            <POSTA property="pred:delivery" content="POSTA"></POSTA>
         </nacini_dostave>
 
 
