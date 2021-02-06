@@ -28,8 +28,6 @@ const SilenceAppeals = () => {
       <>
         <PageList>
           <h2>Information</h2>
-          {isOffical && (<><SearchInput onChange={handleChange}/>
-          <Filter /></>)}
         </PageList>
 
         <Information style={{width:'50%', marginLeft: '25%'}}/>
