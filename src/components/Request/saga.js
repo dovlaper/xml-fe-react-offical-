@@ -1,4 +1,4 @@
-import { CREATE_REQUEST, GET_REQUESTS, REJECT, SEARCH } from "./constants";
+import { CREATE_REQUEST, CREATE_RESPONSE, GET_REQUESTS, REJECT, SEARCH } from "./constants";
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { addRequest, setRequests, getRequests as getAll } from './actions';
 import axios from 'axios';
@@ -99,6 +99,5 @@ export default function* requestSaga() {
   yield takeLatest(CREATE_REQUEST, createRequestSaga);
   yield takeLatest(SEARCH, search);
   yield takeLatest(REJECT, reject);
-  
 }
   

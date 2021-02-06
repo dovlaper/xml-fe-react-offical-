@@ -8,7 +8,8 @@ import {
     FILTER,
     SEARCH,
     SET_SEARCH,
-    REJECT
+    REJECT,
+    CREATE_RESPONSE,
 } from "./constants";
 
 export const getRequests = (payload) => ({
@@ -58,5 +59,10 @@ export const setFilter = payload => ({
 
 export const reject = payload => ({
     type: REJECT,
+    payload
+})
+
+export const createResponse = payload => ({
+    type: CREATE_RESPONSE,
     payload
 })

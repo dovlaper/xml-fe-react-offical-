@@ -1,15 +1,16 @@
 import { ABORT_APPEAL, CREATE_INFORMATION, GET_INFORMATIONS, SEARCH, FILTER } from "./constants";
 import { takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
-import { setInformation, addInformation } from './actions';
+import { setInformation, getInformation as getAll } from './actions';
 import { getItem } from "../../utils/localStorage";
 import { setError } from "../../containers/App/actions";
+
 export function* getInformation({payload}) {
   try {
       const all = payload || '';
       const { data }= yield call(() => 
         axios.get(
-          `http://localhost:8083/api/informations/${all}`, 
+          `http://localhost:8083/api/information/${all}`, 
           {
             data: null,
             headers: {
@@ -23,7 +24,7 @@ export function* getInformation({payload}) {
 
       const xmlDoc = parser.parseFromString(data,"text/xml");
       
-      const list = Array.from(xmlDoc.getElementsByTagNameNS("http://www.zalbanaodluku.com", "ZalbaRoot")) 
+      const list = Array.from(xmlDoc.getElementsByTagNameNS("http://www.obavestenje.com", "ObavestenjeRoot")) 
       yield put(setInformation(list))
   } catch (error) {
       console.log(error)
@@ -34,7 +35,7 @@ export function* createInformationSaga({ payload }) {
   try {
       const { data } = yield call(() => 
           axios.post(
-              "http://localhost:8083/api/informations/",
+              "http://localhost:8083/api/information/",
               payload,
               {
                 headers: {
@@ -44,9 +45,8 @@ export function* createInformationSaga({ payload }) {
               }
           )
       )
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(data,"text/xml");
-      yield put(addInformation(xmlDoc.getElementsByTagNameNS("http://www.zalbanaodluku.com", "ZalbaRoot")[0]  ))
+      yield put(getAll())
+      // yield put(addInformation(xmlDoc.getElementsByTagNameNS("http://www.obavestenje.com", "ObavestenjeRoot")[0]  ))
   } catch(error) {
       console.log(error)
   }
@@ -55,7 +55,7 @@ export function* createInformationSaga({ payload }) {
 export function* search({payload}) {
     try {
       const {data} = yield call(()=> axios.get(
-      `http://localhost:8083/api/informations/search/${payload}`,
+      `http://localhost:8083/api/information/search/${payload}`,
       {
         headers: {
           'Content-Type': 'application/xml',
@@ -77,7 +77,7 @@ export function* search({payload}) {
 export function* filter({payload}) {
   try {
     const {data} = yield call(()=> axios.post(
-    `http://localhost:8083/api/informations/meta/search/`,
+    `http://localhost:8083/api/information/meta/search/`,
     payload,
     {
       headers: {

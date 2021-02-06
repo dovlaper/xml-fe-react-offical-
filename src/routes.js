@@ -14,3 +14,4 @@ export const SILENCE_APPEALS = '/silenceappeal';
 export const REPORTS = '/reports';
 export const REQUESTS = '/requests';
 export const INFORMATION = '/information';
+export const APPEAL_ANNOUNCEMENT = '/appeal-announcement';

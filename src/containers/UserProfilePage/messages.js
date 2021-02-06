@@ -36,7 +36,7 @@ export default defineMessages({
   },
   profileUpdated: {
     id: `${scope}.notification.profile_update`,
-    defaultMessage: 'Profile informations succefully updated'
+    defaultMessage: 'Profile information succefully updated'
   },
   passwordChanged: {
     id: `${scope}.notifications.password_changed`,

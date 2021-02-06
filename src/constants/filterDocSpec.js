@@ -36,3 +36,21 @@ export const xml = (
 <RecipientCity>${recCity}</RecipientCity>
 <RecipientStreet>${recStreet}</RecipientStreet>
 </sh:DecisionAppealFilter>`
+
+
+export const rescriptXML = (
+    appealId,
+    rescriptDate,
+    commissionerName,
+    commissionerLastname,
+    submitter,
+    appealStatus,
+) => `<?xml version="1.0" encoding="UTF-8"?>
+<sh:RescriptFilter xmlns:sh="http://www.shared.com" >
+<RescriptForAppeal>${appealId}</RescriptForAppeal>
+<RescriptDate>${rescriptDate?.toLocaleDateString("en-CA") || ''}</RescriptDate>
+<AppealStatus>${appealStatus}</AppealStatus>
+<CommisionerName>${commissionerName}</CommisionerName>
+<CommisionerLastname>${commissionerLastname}</CommisionerLastname>
+<Submitter>${submitter}</Submitter>
+</sh:RescriptFilter>`

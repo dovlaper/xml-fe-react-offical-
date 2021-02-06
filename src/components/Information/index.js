@@ -13,7 +13,7 @@ const key = 'information';
 const InfoAppealWrapper = styled.div`
 width: 100%;
 `
-const Decision = () => {
+const Information = () => {
     const newXml = useSelector(makeSelectInformation())
     const ref = useRef()
     const dispatch = useDispatch();
@@ -36,4 +36,4 @@ const Decision = () => {
     )
 }
 
-export default Decision;
+export default Information;

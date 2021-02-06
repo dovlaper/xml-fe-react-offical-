@@ -1,6 +1,6 @@
-import { GET_REPORTS } from "./constants";
+import { GENERATE, GET_REPORTS, SEARCH } from "./constants";
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { setReports } from './actions';
+import { setReports, getReports as getAll } from './actions';
 import axios from 'axios';
 import { getItem } from "../../utils/localStorage";
 
@@ -8,7 +8,7 @@ export function* getReports() {
     try {
         const { data }= yield call(() => 
           axios.get(
-            `http://localhost:8080/api/report`, 
+            `http://localhost:8083/api/report`, 
             {
               data: null,
               headers: {
@@ -28,6 +28,26 @@ export function* getReports() {
     }
   }
 
+
+  export function* generate() {
+    try {
+        yield call(() => 
+          axios.get(
+            `http://localhost:8083/api/report/submit`, 
+            {
+              data: null,
+              headers: {
+                'Content-Type': 'application/xml',
+                'Authorization': `Bearer ${getItem('token')}`
+              }
+            }
+          )
+        )
+        yield put(getAll());
+    } catch (error) {
+        console.log(error)
+    }
+  }
 // export function* createSilenceSaga({ payload }) {
 //   try {
 //       const { data } = yield call(() => 
@@ -103,7 +123,33 @@ export function* getReports() {
 //   console.log(error)
 // }
 // }
+
+export function* search({payload}) {
+  try {
+    const {data} = yield call(()=> axios.get(
+    `http://localhost:8083/api/report/meta/search/${payload}`,
+    {
+      headers: {
+        'Content-Type': 'application/xml',
+        'Authorization': `Bearer ${getItem('token')}`
+      }
+    }
+  ))
+  const parser = new DOMParser();
+
+  const xmlDoc = parser.parseFromString(data,"text/xml");
+  
+  const list = Array.from(xmlDoc.getElementsByTagNameNS("http://www.izvestaj.com", "IzvestajRoot")) 
+  yield put(setReports(list))
+} catch(error) {
+  console.log(error)
+}
+}
+
 export default function* silenceSaga() {
   yield takeLatest(GET_REPORTS, getReports);
+  yield takeLatest(GENERATE, generate);
+  yield takeLatest(SEARCH, search);
+
 }
   

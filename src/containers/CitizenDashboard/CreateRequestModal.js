@@ -1,9 +1,7 @@
 import React, {useState, useRef, useMemo, forwardRef} from 'react';
 import requestDocSpec, { xmlString } from '../../constants/requestDocSpec';
 import BaseModal from '../../shared/ContextAwareToggle/BaseModal';
-import { FormControlLabel, Radio, RadioGroup, TextField, withStyles } from '@material-ui/core';
 import { Builder, XmlEditor } from 'react-xml-editor';
-import { green } from '@material-ui/core/colors';
 import { getUserFromToken } from '../../utils/request';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
@@ -15,16 +13,6 @@ import { createRequest } from '../../components/Request/actions';
 
 const key = 'request';
 
-const GreenRadio = withStyles({
-    root: {
-      color: green[400],
-      '&$checked': {
-        color: green[600],
-      },
-    },
-    checked: {},
-  })((props) => <Radio color="default" {...props} />);
-  
 const CreateRequestModal = ({show, close }) => {
 
     const ref = useRef();

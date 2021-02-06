@@ -23,7 +23,7 @@ import {
   OFFICAL,
   CITIZEN,
   RESCRIPTS,
-
+  APPEAL_ANNOUNCEMENT,
   REPORTS,
   INFORMATION,
   REQUESTS
@@ -33,6 +33,7 @@ import InformationPage from '../InformationPage'
 import RequestPage from '../RequestPage';
 import Rescripts from '../Rescripts';
 import Reports from '../Reports';
+import AppealAnnouncement from '../AppealAnnouncement';
 
 export default function Routes() {
   
@@ -44,14 +45,15 @@ console.log(isAuthenticated)
       <PublicRoute exact path={WELCOME} component={WelcomePage} />
       <PrivateRoute exact path={DASHBOARD} component={Dashboard}/>
       <PrivateRoute exact path={OFFICAL} component={OfficalDashboard} isAuthenticated={true} canAccess={user?.role === "ROLE_OFFICIAL"}  />
-      <PrivateRoute exact path={CITIZEN} component={CitizenDashboard} isAuthenticated={!!user}  canAccess={user?.role === "ROLE_CITIZEN"}  />
+      <PrivateRoute exact path={CITIZEN} component={CitizenDashboard} isAuthenticated={!!user} canAccess={user?.role === "ROLE_CITIZEN"}  />
       <PrivateRoute exact path={USER_PROFILE} component={UserProfilePage} />
       <PublicRoute exact path={LOGIN} component={LoginPage} />
       <PublicRoute exact path={REGISTER} component={RegisterPage} />
       <PrivateRoute exact path={RESCRIPTS} component={Rescripts} isAuthenticated={!!user} />
-      <PrivateRoute exact path={INFORMATION} component={InformationPage} isAuthenticated={!!user} />
-      <PrivateRoute exact path={REQUESTS} component={RequestPage} isAuthenticated={!!user} />
+      <PrivateRoute exact path={INFORMATION} component={InformationPage} isAuthenticated={!!user}/>
+      <PrivateRoute exact path={REQUESTS} component={RequestPage} isAuthenticated={!!user}/>
       <PrivateRoute exact path={REPORTS} component={Reports} isAuthenticated={!!user} />
+      <PrivateRoute exact path={APPEAL_ANNOUNCEMENT} component={AppealAnnouncement} canAccess={user?.role === "ROLE_OFFICIAL"} isAuthenticated={!!user} />
 
       <PublicRoute
         exact

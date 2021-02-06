@@ -10,3 +10,4 @@ export const SET_SEARCH = `${REQUEST} SET_SEARCH`;
 export const FILTER = `${REQUEST} FILTER`;
 export const SET_FILTER = `${REQUEST} SET_FILTER`;
 export const REJECT = `${REQUEST} REJECT`;
+export const CREATE_RESPONSE = `${REQUEST} CREATE_RESPONSE`;
