@@ -14,6 +14,8 @@ import { useInjectSaga } from '../../utils/injectSaga';
 import saga from '../Request/saga';
 import {getRequests, reject } from '../Request/actions'
 import { useLocation } from 'react-router';
+import createRefMapper from '../../shared/mapper';
+import HeaderOptionsRefs from './HeaderOptionsRefs';
 const key = 'request';
 const AccordionHeaderOptions = (shouldShow, status, rest) => {
     const [showModal, setShowModal] = useState(false);
@@ -28,7 +30,7 @@ const AccordionHeaderOptions = (shouldShow, status, rest) => {
     const handleReject = () => {
         dispatch(reject(rest.id))
     }
-
+    const showHrefOption = useLocation().pathname === '/information'
     const handleAprove = () => {
         setShowResponseModal(true);
     }
@@ -38,10 +40,15 @@ const AccordionHeaderOptions = (shouldShow, status, rest) => {
             {shouldShow && (
                 <>
                     {isCitizen ? 
-                        <HeaderOptionsCitizen id={rest.id}/> :
+                    <>
+                        <HeaderOptionsCitizen id={rest.id}/>
+                        {showHrefOption && (<HeaderOptionsRefs mapper={rest.mapper}/>)}
+                    </> :
                         (
                             <>
                                 <HeaderOptionsCitizen id={rest.id}/>
+                                {showHrefOption && (<HeaderOptionsRefs mapper={rest.mapper}/>)}
+
                                 <HeaderOptionsCommissioner
                                     rejectCb={handleReject}
                                     answerCb={() => setShowModal(true)}
@@ -70,6 +77,7 @@ const AccordionHeaderOptions = (shouldShow, status, rest) => {
 const AppealList = ({list}) => {
     const serializer = new XMLSerializer();
     const user = getUserFromToken()
+    const route = useLocation().pathname;
 
     const itemEls = useRef(new Array())
     const [ xml, setXml] = useState('')
@@ -88,6 +96,8 @@ const AppealList = ({list}) => {
                     const appealId = xmlNode?.getElementsByTagNameNS("http://www.zalbaobavestenje.com", "ID_Zalbe")[0]?.innerHTML;
                     const submitterId = xmlNode?.getAttribute('href');
                     const requestId =  xmlNode?.getAttribute('about');
+                    const mapper = createRefMapper(xmlNode, route)
+
                     return (
                         <Card key={index}> 
                             <ContextAwareToggle
@@ -101,6 +111,7 @@ const AppealList = ({list}) => {
                                 submitterId={submitterId}
                                 requestId={requestId}
                                 appealId={appealId}
+                                mapper={mapper}
                             >
                                 {AccordionHeaderOptions}
                             </ContextAwareToggle>
