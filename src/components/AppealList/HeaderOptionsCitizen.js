@@ -27,16 +27,16 @@ const HeaderOptionsCitizen = ({id}) => {
                 onClose={handleClose}
             >
                     <MenuItem>
-                        <Link href={`http://localhost:8080/api${route}/${id}/generate?type=pdf`}>Download PDF</Link>
+                        <Link href={`http://localhost:8083/api${route}/${id}/generate?type=pdf`}>Download PDF</Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link href={`http://localhost:8080/api${route}/${id}/generate?type=html`}>Download HTML</Link>
+                        <Link href={`http://localhost:8083/api${route}/${id}/generate?type=html`}>Download HTML</Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link href={`http://localhost:8080/api${route}/meta/json/${id}`}>Export Metadata JSON</Link>
+                        <Link href={`http://localhost:8083/api${route}/meta/json/${id}`}>Export Metadata JSON</Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link href={`http://localhost:8080/api${route}/meta/rdf/${id}`}>Export Metadata RDF</Link>
+                        <Link href={`http://localhost:8083/api${route}/meta/rdf/${id}`}>Export Metadata RDF</Link>
                     </MenuItem>
             </Menu>     
         </>

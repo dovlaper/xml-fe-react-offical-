@@ -10,7 +10,7 @@ import { setToken, sessionExpired } from '../containers/App/actions';
 import { makeSelectToken } from '../containers/App/selectors';
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/",
+  baseURL: "http://localhost:8083/api/",
 });
 
 api.interceptors.response.use(
