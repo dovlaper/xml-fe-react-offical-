@@ -100,6 +100,7 @@ const AppealList = ({list}) => {
                                 status={status}
                                 submitterId={submitterId}
                                 requestId={requestId}
+                                appealId={appealId}
                             >
                                 {AccordionHeaderOptions}
                             </ContextAwareToggle>
