@@ -44,7 +44,7 @@ const Filter = ({onSubmit}) => {
                 <BaseModal
                     show={show}
                     close={() => setShow(false)}
-                    title="Filter Appeals"
+                    title="Filter Rescripts"
                     onSubmit={handleSubmit}
                     buttonTitle="Apply filters"
                     aditionalStyle={{marginTop: '200px'}}
@@ -90,9 +90,9 @@ const Filter = ({onSubmit}) => {
                             onChange={e => setAppealStatus(e.target.value)}
                             label="Appeal Status"
                         >
-                            <MenuItem value={'PRIHVACENA'}>Prihvacena</MenuItem>
-                            <MenuItem value={'ODBIJENA'}>Odbijena</MenuItem>
-                            <MenuItem value={''}>U procesu </MenuItem>
+                            <MenuItem value={'PRIHVACENA'}>Accepted</MenuItem>
+                            <MenuItem value={'ODBIJENA'}>Declined</MenuItem>
+                            <MenuItem value={''}>None</MenuItem>
                         </Select>
                     </FormControl>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>

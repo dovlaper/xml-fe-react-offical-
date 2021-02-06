@@ -54,3 +54,25 @@ export const rescriptXML = (
 <CommisionerLastname>${commissionerLastname}</CommisionerLastname>
 <Submitter>${submitter}</Submitter>
 </sh:RescriptFilter>`
+
+
+export const requestXML = (
+    institutionName,
+    institutionOffice,
+    requestType,
+    delivery,
+    submitter,
+    submitterName,
+    submitterLastname,
+    appealDate
+) => `<?xml version="1.0" encoding="UTF-8"?>
+<sh:RequestFilter xmlns:sh="http://www.shared.com" >
+<InstitutionName>${institutionName}</InstitutionName>
+<InstitutionOffice>${institutionOffice}</InstitutionOffice>
+<RequestType>${requestType}</RequestType>
+<Delivery>${delivery}</Delivery>
+<SubmitterName>${submitterName}</SubmitterName>
+<AppealDate>${appealDate?.toLocaleDateString("en-CA") || ''}</AppealDate>
+<SubmitterLastname>${submitterLastname}</SubmitterLastname>
+<Submitter>${submitter}</Submitter>
+</sh:RequestFilter>`

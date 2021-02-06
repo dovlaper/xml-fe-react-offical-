@@ -3,7 +3,7 @@ import Request from '../../components/Request';
 import { AddButtonIcon, PageList } from '../../shared/PageList';
 import { getRole } from '../../utils/request';
 import SearchInput from '../../shared/SearchInput';
-import Filter from '../../shared/Filter';
+import Filter from '../../shared/RequestFilter';
 import { useDispatch } from 'react-redux';
 import { getRequests, search, filter } from '../../components/Request/actions';
 import CreateRequestModal from '../CitizenDashboard/CreateRequestModal';

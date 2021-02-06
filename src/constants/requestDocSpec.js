@@ -3,13 +3,37 @@ import { Util } from 'react-xml-editor/lib';
 const silenceAppealDocSpec = {
     elements: {
         'ns3:tip_zahteva': {
-            asker: Util.askPicklist([{
-                value: 'KOPIJA DOKUMENTA', caption: 'Kopija dokumenta'
-            },{
-                value: 'UVID U DOKUMENT', caption: 'Uvid u dokument',
-            },{
-                value: 'OBAVESTENJE DA LI POSEDUJE INFORMACIJU', caption: 'Obavestenje da li poseduje informaciju',
-            }]),
+
+            asker: Util.askPicklist([
+                {
+                    value: 'KOPIJA DOKUMENTA', caption: 'Kopija dokumenta'
+                },{
+                    value: 'UVID U DOKUMENT', caption: 'Uvid u dokument',
+                },{
+                    value: 'OBAVESTENJE DA LI POSEDUJE INFORMACIJU', caption: 'Obavestenje da li poseduje informaciju',
+                }
+            ])
+        },
+        'nacini_dostave': {
+
+            menu: [
+                {
+                    action: Util.newElementChild('<POSTA property="pred:delivery" content="POSTA"></POSTA>'),
+                    caption: 'Posta',
+                },
+                {
+                    action: Util.newElementChild('<EMAIL property="pred:delivery" content="EMAIL"></EMAIL>'),
+                    caption: 'Email',
+                },
+                {
+                    action: Util.newElementChild('<FAKS property="pred:delivery" content="FAKS"></FAKS>'),
+                    caption: 'Faks',
+                },
+                {
+                    action: Util.newElementChild('Unesite nesto drugo'),
+                    caption: 'Drugo',
+                },
+            ]
         }
     }
   };
@@ -47,7 +71,6 @@ export const xmlString = (citizenId) => {
 
         достављање копије документа који садржи тражену информацију:**
         <nacini_dostave>
-            <POSTA property="pred:delivery" content="POSTA"></POSTA>
         </nacini_dostave>
 
 

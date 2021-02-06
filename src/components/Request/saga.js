@@ -1,4 +1,4 @@
-import { CREATE_REQUEST, CREATE_RESPONSE, GET_REQUESTS, REJECT, SEARCH } from "./constants";
+import { CREATE_REQUEST, CREATE_RESPONSE, GET_REQUESTS, REJECT, SEARCH, FILTER } from "./constants";
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { addRequest, setRequests, getRequests as getAll } from './actions';
 import axios from 'axios';
@@ -94,10 +94,35 @@ export function* search({payload}) {
   }
 
 
+  export function* filter({payload}) {
+    try {
+      console.log(payload);
+      const {data} = yield call(()=> axios.post(
+      `http://localhost:8083/api/requests/meta/search/`,
+      payload,
+        {
+          headers: {
+            'Content-Type': 'application/xml',
+            'Authorization': `Bearer ${getItem('token')}`
+          }
+        }
+      ))
+      const parser = new DOMParser();
+  
+      const xmlDoc = parser.parseFromString(data,"text/xml");
+      const list = Array.from(xmlDoc.getElementsByTagNameNS("http://www.zahtev.com", "ZahtevRoot")) 
+      yield put(setRequests(list))
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+
 export default function* requestSaga() {
   yield takeLatest(GET_REQUESTS, getRequests);
   yield takeLatest(CREATE_REQUEST, createRequestSaga);
   yield takeLatest(SEARCH, search);
   yield takeLatest(REJECT, reject);
+  yield takeLatest(FILTER, filter);
 }
   
