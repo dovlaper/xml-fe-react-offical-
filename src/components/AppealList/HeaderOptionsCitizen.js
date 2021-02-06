@@ -13,12 +13,12 @@ const HeaderOptionsCitizen = ({id}) => {
     const handleClose = () => {
       setAnchorEl(null);
     };
-
+    const showOptions = route !== '/appeal-announcement'
     return (
         <>
-            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+            {showOptions && (<Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 Options
-            </Button>
+            </Button>)}
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
